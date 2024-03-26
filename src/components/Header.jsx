@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-const Header = () => {
+const Header = ({ best, current }) => {
   return (
     <Container>
       <div className="header">
         <h1 className="title">Memory Cards Game</h1>
         <ul className="scores">
-          <li>Best Score :</li>
-          <li>Current Score :</li>
+          <li>Best Score : {best}</li>
+          <li>Current Score : {current}</li>
         </ul>
       </div>
     </Container>
