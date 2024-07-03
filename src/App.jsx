@@ -30,7 +30,7 @@ function App() {
     getPokemonList()
       .then((data) => setPokemonData(data))
       .catch((error) => console.error(error));
-  }, []);
+  });
   return pokemonData ? (
     <Body pokemonList={pokemonData} />
   ) : (

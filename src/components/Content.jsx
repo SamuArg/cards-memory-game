@@ -2,9 +2,6 @@ import Card from "./Card";
 import styled from "styled-components";
 import { useState } from "react";
 const Content = ({ pokemonList, onClick, onFail }) => {
-  const [clickedStates, setClickedStates] = useState(
-    pokemonList.map(() => false)
-  );
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -12,21 +9,26 @@ const Content = ({ pokemonList, onClick, onFail }) => {
     }
     return array;
   }
-  const [shuffledList, setShuffledList] = useState(pokemonList);
+  const [shuffledList, setShuffledList] = useState(
+    shuffleArray(pokemonList.map((pokemon) => ({ ...pokemon, clicked: false })))
+  );
   const handleClick = (index) => {
-    if (!clickedStates[index]) {
-      const newClickedStates = [...clickedStates];
-      newClickedStates[index] = true;
-      setClickedStates(newClickedStates);
+    const clickedCard = shuffledList[index];
+    if (!clickedCard.clicked) {
+      clickedCard.clicked = true;
       onClick();
+      setShuffledList(shuffleArray([...shuffledList]));
     } else {
       handleFail();
     }
-    setShuffledList(shuffleArray([...shuffledList]));
   };
   const handleFail = () => {
     onFail();
-    setClickedStates(pokemonList.map(() => false));
+    const resetList = shuffledList.map((pokemon) => ({
+      ...pokemon,
+      clicked: false,
+    }));
+    setShuffledList(shuffleArray(resetList));
   };
   return (
     <Container>
@@ -38,7 +40,7 @@ const Content = ({ pokemonList, onClick, onFail }) => {
                 image={pokemon.image}
                 name={pokemon.pokemonName}
                 onClick={() => handleClick(index)}
-                clicked={clickedStates[index]}
+                clicked={pokemon.clicked}
               />
             </li>
           );
