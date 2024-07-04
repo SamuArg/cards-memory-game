@@ -40,7 +40,7 @@ const Content = ({ pokemonList, onClick, onFail }) => {
                 image={pokemon.image}
                 name={pokemon.pokemonName}
                 onClick={() => handleClick(index)}
-                clicked={pokemon.clicked}
+                clicked={pokemon.clicked.toString()}
               />
             </li>
           );
