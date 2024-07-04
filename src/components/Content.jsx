@@ -33,7 +33,7 @@ const Content = ({ pokemonList, onClick, onFail }) => {
   return (
     <Container>
       <ul>
-        {shuffledList.map((pokemon, index) => {
+        {shuffledList.slice(0, 9).map((pokemon, index) => {
           return (
             <li key={pokemon.pokemonName}>
               <Card
